@@ -2,12 +2,18 @@ import React, {useState} from "react";
 
 const dummyAdminLogin = {
     username: 'admin',
-    password: '1234'
+    password: '1234',
+    isAdmin: true
 }
 
 const dummyUserLogin = {
     username: 'testuser',
-    password: '12345'
+    password: '12345',
+    isAdmin: false,
+    name: "John Doe",
+    technologies: ["React", "Node.js"],
+    certifications: ["AWS Certified Developer"],
+    yearsWorked: 5
 }
 
 const Login = ({onLogin}) => {
@@ -17,17 +23,24 @@ const Login = ({onLogin}) => {
 
     const loginHandler = (event) => {
         event.preventDefault();
+        let account;
         
         if (username === dummyAdminLogin.username && password === dummyAdminLogin.password) {
-            onLogin(dummyAdminLogin.username);
+            account = dummyAdminLogin;
+            setError("");
+            onLogin(account);
         }
         else if (username === dummyUserLogin.username && password === dummyUserLogin.password) {
-            onLogin(dummyUserLogin.username);
+            account = dummyUserLogin;
+            setError("");
+            onLogin(account);
         }
         else {
             setError("Login Unsuccesfull!")
         }
 
+        setError("");
+        onLogin(account);
     };
 
     return (
