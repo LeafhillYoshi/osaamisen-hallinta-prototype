@@ -1,0 +1,30 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.user-panel {
+    display: flex;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: rgb(2, 167, 103);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content {
+    margin-left: 230px;
+    padding: 20px;
+    width: calc(100% - 220px);
+    background-color: #333;
+    min-height: 100vh;
+}

@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navigate } from "react-router-dom";
 import Login from './components/Login';
-//import LoggedIn from './components/LoggedIn';
 import AdminPanel from './components/panels/AdminPanel';
 import UserPanel from './components/panels/UserPanel';
+import Card from './components/UI/Card';
+import './App.css';
 
 const dummyPeople = [
   {
@@ -52,7 +53,7 @@ function App() {
   const adminEditUser = (updatedUser) => {
     setUsers((users) => users.map((user) => (user.id === updatedUser.id ? updatedUser : user)));
   };
-  
+
   return (
     <Router>
       <Routes>
@@ -62,7 +63,18 @@ function App() {
             loggedInUser ? (
               <Navigate to={loggedInUser.isAdmin ? "/admin" : "/user"} />
             ) : (
-              <Login onLogin={handleLogin} />
+              <div className="front-page">
+                <div className="sidebar">
+                  <h1>Welcome to the User Management System</h1>
+                  <p>Please log in to continue</p>
+                </div>
+                <div className="content">
+                  <Card className="login-card">
+                    <Login onLogin={handleLogin} />
+                  </Card>
+                </div>
+              </div>
+
             )
           }
         />
@@ -90,13 +102,13 @@ function App() {
     </Router>
 
 
-      /*<div>
-        {loggedInUser ? (
-          <LoggedIn username={loggedInUser} onLogout={() => setLoggedInUser(null)} />
-        ) : (
-          <Login onLogin={(username) => setLoggedInUser(username)} />
-        )}
-    </div>*/
+    /*<div>
+      {loggedInUser ? (
+        <LoggedIn username={loggedInUser} onLogout={() => setLoggedInUser(null)} />
+      ) : (
+        <Login onLogin={(username) => setLoggedInUser(username)} />
+      )}
+  </div>*/
   );
 }
 

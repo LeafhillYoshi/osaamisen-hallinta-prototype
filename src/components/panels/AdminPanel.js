@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import Card from "../UI/Card";
 import jsPDF from "jspdf";
+import "./AdminPanel.css";
 
-const AdminPanel = ({users}) => {
+const AdminPanel = ({ users, updateUser, onLogout }) => {
     const [search, setSearch] = useState("");
     const [filterCriteria, setFilterCriteria] = useState("All");
     const [selectedUsers, setSelectedUsers] = useState([]);
@@ -62,43 +64,56 @@ const AdminPanel = ({users}) => {
     };
 
     return (
-        <div>
-            <h1>Admin Panel</h1>
-            <input type="text" placeholder="Search..." value={search} onChange={handleSearch} />
-            <select onChange={(e) => setFilterCriteria(e.target.value)}>
-                <option value="all">All</option>
-                <option value="technologies">Technologies</option>
-                <option value="certifications">Certifications</option>
-                <option value="yearsWorked">Years Worked</option>
-            </select>
-            <ul>
-                {users.filter(handleFilter).map((user) => (
-                    <li key={user.id}>
-                        {user.name}
-                        <button onClick={() => printCV(user)}>Print CV</button>
-                        <button onClick={() => editUser(user)}>Edit</button>
-                        <button onClick={() => toggleUserInfo(user.id)}>
-                            {visibleUserId === user.id ? "Hide User Information" : "Show User Information"}
-                        </button>
-                        {visibleUserId === user.id && (
-                            <div>
-                                <p><strong>Technologies:</strong> {user.technologies.join(", ")}</p>
-                                <p><strong>Certifications:</strong> {user.certifications.join(", ")}</p>
-                                <p><strong>Years Worked:</strong> {user.yearsWorked}</p>
+        <div className="admin-panel">
+            <div className="sidebar">
+                <h1>Admin Panel</h1>
+                <input type="text" placeholder="Search..." value={search} onChange={handleSearch} />
+                <select onChange={(e) => setFilterCriteria(e.target.value)}>
+                    <option value="all">All</option>
+                    <option value="technologies">Technologies</option>
+                    <option value="certifications">Certifications</option>
+                    <option value="yearsWorked">Years Worked</option>
+                </select>
+                <button onClick={() => setSelectedUsers(users)}>Select All Users</button>
+                <button onClick={() => setSelectedUsers([])}>Clear Selected Users</button>
+                <button onClick={printAllCVs}>Print Selected CVs</button>
+                <button onClick={onLogout}>Log out</button>
+            </div>
+            <div className="content">
+                <div className="card-container">
+                    {users.filter(handleFilter).map((user) => (
+                        <Card key={user.id} className="user-card">
+                            <div className="card-content">
+                                <li key={user.id}>
+                                    {user.name}
+                                    {visibleUserId === user.id && (
+                                        <div className="user-info">
+                                            <p><strong>Technologies:</strong> {user.technologies.join(", ")}</p>
+                                            <p><strong>Certifications:</strong> {user.certifications.join(", ")}</p>
+                                            <p><strong>Years Worked:</strong> {user.yearsWorked}</p>
+                                        </div>
+                                    )}
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedUsers.includes(user)}
+                                        onChange={(e) => {
+                                            if (e.target.checked) setSelectedUsers([...selectedUsers, user]);
+                                            else setSelectedUsers(selectedUsers.filter((selectedUser) => selectedUser !== user));
+                                        }}
+                                    />
+                                </li>
                             </div>
-                        )}
-                        <input 
-                            type="checkbox" 
-                            checked={selectedUsers.includes(user)} 
-                            onChange={(e) => {
-                                if (e.target.checked) setSelectedUsers([...selectedUsers, user]);
-                                else setSelectedUsers(selectedUsers.filter((selectedUser) => selectedUser !== user));
-                            }}
-                        />
-                    </li>
-                ))}
-            </ul>
-            <button onClick={printAllCVs}>Print Selected CVs</button>
+                            <div className="card-buttons">
+                                <button onClick={() => toggleUserInfo(user.id)}>
+                                    {visibleUserId === user.id ? "Hide User Information" : "Show User Information"}
+                                </button>
+                                <button onClick={() => editUser(user)}>Edit</button>
+                                <button onClick={() => printCV(user)}>Print CV</button>
+                            </div>
+                        </Card>
+                    ))}
+                </div>
+            </div>
         </div>
     )
 };
