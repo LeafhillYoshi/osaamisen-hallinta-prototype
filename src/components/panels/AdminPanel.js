@@ -13,8 +13,8 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
 
     const handleFilter = (user) => {
         if (filterCriteria === "all") return true;
-        if (filterCriteria === "technologies") return user.technologies.some(tech => tech.toLowerCase().includes(search));
-        if (filterCriteria === "certifications") return user.certifications.some(cert => cert.toLowerCase().includes(search));
+        if (filterCriteria === "technologies") return user.technologies.toLowerCase().includes(search);
+        if (filterCriteria === "certifications") return user.certifications.toLowerCase().includes(search);
         if (filterCriteria === "yearsWorked") return user.yearsWorked === parseInt(search, 10);
         return true;
     };
@@ -22,9 +22,14 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
     const printCV = (user) => {
         const doc = new jsPDF();
         doc.text(`Name: ${user.name}`, 10, 10);
-        doc.text(`Certifications: ${user.certifications.join(", ")}`, 10, 20);
-        doc.text(`Technologies: ${user.technologies.join(", ")}`, 10, 30);
-        doc.text(`Years Worked: ${user.yearsWorked}`, 10, 40);
+        doc.text(`Education: ${user.education}`, 10, 20);
+        doc.text(`Education Degree: ${user.educationDegree}`, 10, 30);
+        doc.text(`Graduation Year: ${user.graduationYear}`, 10, 40);
+        doc.text(`Project Experience: ${user.projectExperience}`, 10, 50);
+        doc.text(`Certifications: ${user.certifications}`, 10, 60);
+        doc.text(`Technologies: ${user.technologies}`, 10, 70);
+        doc.text(`Years Worked: ${user.yearsWorked}`, 10, 80);
+        doc.text(`Starting Year: ${user.startingYear}`, 10, 90);
         doc.save(`${user.name}_CV.pdf`);
     };
 
@@ -35,28 +40,43 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
                 doc.addPage();
             }
             doc.text(`Name: ${user.name}`, 10, 10);
-            doc.text(`Certifications: ${user.certifications.join(", ")}`, 10, 20);
-            doc.text(`Technologies: ${user.technologies.join(", ")}`, 10, 30);
-            doc.text(`Years Worked: ${user.yearsWorked}`, 10, 40);
+            doc.text(`Education: ${user.education}`, 10, 20);
+            doc.text(`Education Degree: ${user.educationDegree}`, 10, 30);
+            doc.text(`Graduation Year: ${user.graduationYear}`, 10, 40);
+            doc.text(`Project Experience: ${user.projectExperience}`, 10, 50);
+            doc.text(`Certifications: ${user.certifications}`, 10, 60);
+            doc.text(`Technologies: ${user.technologies}`, 10, 70);
+            doc.text(`Years Worked: ${user.yearsWorked}`, 10, 80);
+            doc.text(`Starting Year: ${user.startingYear}`, 10, 90);
         });
         doc.save("Selected-Users-CVs.pdf");
     };
 
     const editUser = (user) => {
         const name = prompt("Edit name:", user.name);
-        const technologies = prompt("Edit technologies (comma-separated):", user.technologies.join(", ")).split(",");
-        const certifications = prompt("Edit certifications (comma-separated):", user.certifications.join(", ")).split(",");
+        const education = prompt("Edit education:", user.education);
+        const educationDegree = prompt("Edit education degree:", user.educationDegree);
+        const graduationYear = parseInt(prompt("Edit graduation year:", user.graduationYear), 10);
+        const projectExperience = prompt("Edit project experience:", user.projectExperience);
+        const technologies = prompt("Edit technologies (comma-separated):", user.technologies);
+        const certifications = prompt("Edit certifications (comma-separated):", user.certifications);
         const yearsWorked = parseInt(prompt("Edit years worked:", user.yearsWorked), 10);
+        const startingYear = parseInt(prompt("Edit starting year:", user.startingYear), 10);
 
         const updatedUser = {
             ...user,
             name,
+            education,
+            educationDegree,
+            graduationYear,
+            projectExperience,
             technologies,
             certifications,
-            yearsWorked
+            yearsWorked,
+            startingYear
         };
 
-        return updatedUser;
+        updateUser(updatedUser);
     };
 
     const toggleUserInfo = (userId) => {
@@ -88,9 +108,14 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
                                     {user.name}
                                     {visibleUserId === user.id && (
                                         <div className="user-info">
-                                            <p><strong>Technologies:</strong> {user.technologies.join(", ")}</p>
-                                            <p><strong>Certifications:</strong> {user.certifications.join(", ")}</p>
+                                            <p><strong>Education:</strong> {user.education}</p>
+                                            <p><strong>Education Degree:</strong> {user.educationDegree}</p>
+                                            <p><strong>Graduation Year:</strong> {user.graduationYear}</p>
+                                            <p><strong>Project Experience:</strong> {user.projectExperience}</p>
+                                            <p><strong>Technologies:</strong> {user.technologies}</p>
+                                            <p><strong>Certifications:</strong> {user.certifications}</p>
                                             <p><strong>Years Worked:</strong> {user.yearsWorked}</p>
+                                            <p><strong>Starting Year:</strong> {user.startingYear}</p>
                                         </div>
                                     )}
                                     <input

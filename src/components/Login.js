@@ -11,9 +11,14 @@ const dummyUserLogin = {
     password: '12345',
     isAdmin: false,
     name: "John Doe",
-    technologies: ["React", "Node.js"],
-    certifications: ["AWS Certified Developer"],
-    yearsWorked: 5
+    education: "Vaasa University of Applied Sciences",
+    educationDegree: "Bachelor of Engineering",
+    graduationYear: 2020,
+    projectExperience: "Backend, Frontend",
+    technologies: "React, Node.js",
+    certifications: "AWS Certified Developer",
+    yearsWorked: 5,
+    startingYear: 2019
 }
 
 const Login = ({onLogin}) => {

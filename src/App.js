@@ -11,26 +11,38 @@ const dummyPeople = [
   {
     id: 1,
     name: "Alice Johnson",
-    role: "Admin",
-    technologies: ["React", "Node.js"],
-    certifications: ["AWS Certified Developer"],
+    education: "Vaasa University of Applied Sciences",
+    educationDegree: "Bachelor of Engineering",
+    graduationYear: 2019,
+    projectExperience: "Full-stack developer, Team lead",
+    technologies: "React, Node.js",
+    certifications: "AWS Certified Developer",
     yearsWorked: 5,
+    startingYear: 2019,
   },
   {
     id: 2,
     name: "Bob Smith",
-    role: "User",
-    technologies: ["Python", "Django"],
-    certifications: ["Certified Kubernetes Administrator"],
+    education: "Vaasa University of Applied Sciences",
+    educationDegree: "Bachelor of Engineering",
+    graduationYear: 2020,
+    projectExperience: "DevOps engineer",
+    technologies: "Python, Django",
+    certifications: "Certified Kubernetes Administrator",
     yearsWorked: 3,
+    startingYear: 2021,
   },
   {
     id: 3,
     name: "Charlie Brown",
-    role: "User",
-    technologies: ["Java", "Spring"],
-    certifications: ["Oracle Certified Professional"],
+    education: "Vaasa University of Applied Sciences",
+    educationDegree: "Bachelor of Engineering",
+    graduationYear: 2021,
+    projectExperience: "Backend developer",
+    technologies: "Java, Spring",
+    certifications: "Oracle Certified Professional",
     yearsWorked: 4,
+    startingYear: 2020,
   },
 ];
 
@@ -100,15 +112,6 @@ function App() {
         />
       </Routes>
     </Router>
-
-
-    /*<div>
-      {loggedInUser ? (
-        <LoggedIn username={loggedInUser} onLogout={() => setLoggedInUser(null)} />
-      ) : (
-        <Login onLogin={(username) => setLoggedInUser(username)} />
-      )}
-  </div>*/
   );
 }
 
