@@ -4,7 +4,7 @@ import jsPDF from "jspdf";
 import "./AdminPanel.css";
 
 // AdminPanel component
-const AdminPanel = ({ users, updateUser, onLogout }) => {
+const AdminPanel = ({ users, updateUser, addUser, onLogout }) => {
 
     // State variables
     const [search, setSearch] = useState("");
@@ -100,6 +100,37 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
         updateUser(updatedUser);
     };
 
+    // Add a user to the list of users
+    const handleAddUser = () => {
+        // Prompt user to enter user information
+        const name = prompt("Enter name:");
+        const education = prompt("Enter education:");
+        const educationDegree = prompt("Enter education degree:");
+        const graduationYear = parseInt(prompt("Enter graduation year:"), 10);
+        const projectExperience = prompt("Enter project experience:");
+        const technologies = prompt("Enter technologies (comma-separated):");
+        const certifications = prompt("Enter certifications (comma-separated):");    
+        const yearsWorked = parseInt(prompt("Enter years worked:"), 10);
+        const startingYear = parseInt(prompt("Enter starting year:"), 10);
+        
+        // Create a new user object
+        const newUser = {
+            id: users.length + 1,
+            name,
+            education,
+            educationDegree,
+            graduationYear,
+            projectExperience,
+            technologies,
+            certifications,
+            yearsWorked,
+            startingYear
+        };
+        // Add the new user to the list of users
+        addUser(newUser);
+        console.log(newUser);
+    };
+
     // Toggle user information visibility
     const toggleUserInfo = (userId) => {
         setVisibleUserId(visibleUserId === userId ? null : userId);
@@ -120,6 +151,7 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
                 <button onClick={() => setSelectedUsers(users)}>Select All Users</button>
                 <button onClick={() => setSelectedUsers([])}>Clear Selected Users</button>
                 <button onClick={printAllCVs}>Print Selected CVs</button>
+                <button onClick={handleAddUser}>Add User</button>
                 <button onClick={onLogout}>Log out</button>
             </div>
             <div className="content">

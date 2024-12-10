@@ -74,6 +74,10 @@ function App() {
     setUsers((users) => users.map((user) => (user.id === updatedUser.id ? updatedUser : user)));
   };
 
+  const addUser = (newUser) => {
+    setUsers([...users, newUser]);
+  }
+
   // Return the JS
   return (
     <Router>
@@ -103,7 +107,7 @@ function App() {
           path="/admin"
           element={
             loggedInUser?.isAdmin ? (
-              <AdminPanel users={users} updateUser={adminEditUser} onLogout={handleLogout} />
+              <AdminPanel users={users} updateUser={adminEditUser} addUser={addUser} onLogout={handleLogout} />
             ) : (
               <Navigate to="/" />
             )
