@@ -3,7 +3,9 @@ import { jsPDF } from 'jspdf';
 import Card from '../UI/Card';
 import './UserPanel.css';
 
+// UserPanel component
 const UserPanel = ({ user, updateUser, onLogout }) => {
+    // Destructure user object
     const education = user.education || [];
     const educationDegree = user.educationDegree || [];
     const graduationYear = user.graduationYear || 0;
@@ -13,11 +15,9 @@ const UserPanel = ({ user, updateUser, onLogout }) => {
     const yearsWorked = user.yearsWorked || 0;
     const startingYear = user.startingYear || 0;
 
-    /* handleEdit = (field, value) => {
-        updateUser({ ...user, [field]: value });
-    };*/
-
+    // Edit user profile
     const editUser = (user) => {
+        // Prompt user to edit profile
         const name = prompt("Edit name:", user.name);
         const education = prompt("Edit education:", user.education);
         const educationDegree = prompt("Edit education degree:", user.educationDegree);
@@ -28,6 +28,7 @@ const UserPanel = ({ user, updateUser, onLogout }) => {
         const yearsWorked = parseInt(prompt("Edit years worked:", user.yearsWorked), 10);
         const startingYear = parseInt(prompt("Edit starting year:", user.startingYear), 10);
 
+        // Update user information
         const updatedUser = {
             ...user,
             name,
@@ -40,11 +41,16 @@ const UserPanel = ({ user, updateUser, onLogout }) => {
             yearsWorked,
             startingYear
         };
+        // Update user information in the database
         updateUser(updatedUser);
     };
 
+    // Print CV
     const printCV = () => {
+        // Create a new jsPDF instance
         const doc = new jsPDF();
+
+        // Add user information to the document
         doc.text(`Name: ${user.name}`, 10, 10);
         doc.text(`Education: ${user.education.join(", ")}`, 10, 20);
         doc.text(`Education Degree: ${user.educationDegree.join(", ")}`, 10, 30);
@@ -56,7 +62,7 @@ const UserPanel = ({ user, updateUser, onLogout }) => {
         doc.text(`Starting Year: ${user.startingYear}`, 10, 90);
         doc.save(`${user.name}_CV.pdf`);
     };
-
+    
     return (
         <div className="user-panel">
             <div className="sidebar">

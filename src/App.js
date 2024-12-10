@@ -7,6 +7,7 @@ import UserPanel from './components/panels/UserPanel';
 import Card from './components/UI/Card';
 import './App.css';
 
+// Dummy data
 const dummyPeople = [
   {
     id: 1,
@@ -46,26 +47,34 @@ const dummyPeople = [
   },
 ];
 
+// App component
 function App() {
+  // State variables
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [users, setUsers] = useState(dummyPeople);
 
+  // Event handlers
+  // Handle login
   const handleLogin = (account) => {
     setLoggedInUser(account);
   };
 
+  // Handle logout
   const handleLogout = () => {
     setLoggedInUser(null);
   };
 
+  // Edit user
   const userEditUser = (updatedUser) => {
     setLoggedInUser(updatedUser);
   };
 
+  // Edit user as an admin
   const adminEditUser = (updatedUser) => {
     setUsers((users) => users.map((user) => (user.id === updatedUser.id ? updatedUser : user)));
   };
 
+  // Return the JS
   return (
     <Router>
       <Routes>

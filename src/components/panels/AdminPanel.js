@@ -3,14 +3,20 @@ import Card from "../UI/Card";
 import jsPDF from "jspdf";
 import "./AdminPanel.css";
 
+// AdminPanel component
 const AdminPanel = ({ users, updateUser, onLogout }) => {
+
+    // State variables
     const [search, setSearch] = useState("");
     const [filterCriteria, setFilterCriteria] = useState("All");
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [visibleUserId, setVisibleUserId] = useState(null);
 
+    // Event handlers
+    // Handle search input
     const handleSearch = (e) => setSearch(e.target.value.toLowerCase());
 
+    // Filter users based on search input and filter criteria
     const handleFilter = (user) => {
         if (filterCriteria === "all") return true;
         if (filterCriteria === "technologies") return user.technologies.toLowerCase().includes(search);
@@ -19,8 +25,12 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
         return true;
     };
 
+    // Print CV of a single user
     const printCV = (user) => {
+        // Create a new jsPDF instance
         const doc = new jsPDF();
+
+        // Add text to the document
         doc.text(`Name: ${user.name}`, 10, 10);
         doc.text(`Education: ${user.education}`, 10, 20);
         doc.text(`Education Degree: ${user.educationDegree}`, 10, 30);
@@ -30,11 +40,18 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
         doc.text(`Technologies: ${user.technologies}`, 10, 70);
         doc.text(`Years Worked: ${user.yearsWorked}`, 10, 80);
         doc.text(`Starting Year: ${user.startingYear}`, 10, 90);
+        
+        // Save the document
         doc.save(`${user.name}_CV.pdf`);
+
     };
 
+    // Print CV of all selected users
     const printAllCVs = () => {
+        // Create a new jsPDF instance
         const doc = new jsPDF();
+
+        // Add CVs of all selected users to the document
         selectedUsers.forEach((user, index) => {
             if (index > 0) {
                 doc.addPage();
@@ -49,10 +66,13 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
             doc.text(`Years Worked: ${user.yearsWorked}`, 10, 80);
             doc.text(`Starting Year: ${user.startingYear}`, 10, 90);
         });
+        // Save the document
         doc.save("Selected-Users-CVs.pdf");
     };
 
+    // Edit user information
     const editUser = (user) => {
+        // Prompt user to edit user information
         const name = prompt("Edit name:", user.name);
         const education = prompt("Edit education:", user.education);
         const educationDegree = prompt("Edit education degree:", user.educationDegree);
@@ -63,6 +83,7 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
         const yearsWorked = parseInt(prompt("Edit years worked:", user.yearsWorked), 10);
         const startingYear = parseInt(prompt("Edit starting year:", user.startingYear), 10);
 
+        // Update user information
         const updatedUser = {
             ...user,
             name,
@@ -75,14 +96,16 @@ const AdminPanel = ({ users, updateUser, onLogout }) => {
             yearsWorked,
             startingYear
         };
-
+        // Update user information in the database
         updateUser(updatedUser);
     };
 
+    // Toggle user information visibility
     const toggleUserInfo = (userId) => {
         setVisibleUserId(visibleUserId === userId ? null : userId);
     };
 
+    // Render the AdminPanel component
     return (
         <div className="admin-panel">
             <div className="sidebar">

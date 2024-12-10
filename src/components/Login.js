@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 
+// Dummy data for admin and user accounts
 const dummyAdminLogin = {
     username: 'admin',
     password: '1234',
@@ -21,15 +22,18 @@ const dummyUserLogin = {
     startingYear: 2019
 }
 
+// Login component
 const Login = ({onLogin}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
+    // Login handler
     const loginHandler = (event) => {
         event.preventDefault();
         let account;
         
+        // Check if the entered username and password match the dummy data
         if (username === dummyAdminLogin.username && password === dummyAdminLogin.password) {
             account = dummyAdminLogin;
             setError("");
