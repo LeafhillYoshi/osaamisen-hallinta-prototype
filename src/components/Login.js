@@ -54,6 +54,15 @@ const Login = ({onLogin, onError}) => {
         onLogin(account);
     };
 
+    // Return the login form
+    // The form has two input fields for username and password
+    // The form also has a submit button for logging in
+    // The form also displays an error message if the login is unsuccessful
+    // The form calls the loginHandler function when submitted
+    // The loginHandler function checks if the entered username and password match the dummy data
+    // If the entered username and password match the dummy data, the onLogin function is called
+    // The onLogin function is passed the account object as an argument
+    // The account object contains the username, password, and isAdmin properties
     return (
         <div>
           <h1>Login</h1>

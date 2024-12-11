@@ -63,6 +63,11 @@ const UserPanel = ({ user, updateUser, onLogout }) => {
         doc.save(`${user.name}_CV.pdf`);
     };
     
+    // Return the user panel
+    // The user panel displays the user's profile information
+    // The user panel also has buttons for printing the CV, logging off
+    // and editing the user profile.
+    // The user panel is displayed when the user is logged in.
     return (
         <div className="user-panel">
             <div className="sidebar">
