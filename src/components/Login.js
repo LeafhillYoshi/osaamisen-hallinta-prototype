@@ -23,7 +23,7 @@ const dummyUserLogin = {
 }
 
 // Login component
-const Login = ({onLogin}) => {
+const Login = ({onLogin, onError}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -45,7 +45,9 @@ const Login = ({onLogin}) => {
             onLogin(account);
         }
         else {
-            setError("Login Unsuccesfull!")
+            const errorMessage = "Login Unsuccesfull!";
+            setError(errorMessage);
+            onError(errorMessage);
         }
 
         setError("");

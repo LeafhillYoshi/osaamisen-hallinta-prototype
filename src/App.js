@@ -52,11 +52,13 @@ function App() {
   // State variables
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [users, setUsers] = useState(dummyPeople);
+  const [error, setError] = useState("");
 
   // Event handlers
   // Handle login
   const handleLogin = (account) => {
     setLoggedInUser(account);
+    setError("");
   };
 
   // Handle logout
@@ -78,7 +80,14 @@ function App() {
     setUsers([...users, newUser]);
   }
 
-  // Return the JS
+  // Handle error
+  const handleError = (errorMessage) => {
+    setError(errorMessage);
+  };
+
+  // App code for rendering the UI
+  // Uses react-router-dom for routing
+  // to different panels based on the user's role
   return (
     <Router>
       <Routes>
@@ -95,7 +104,8 @@ function App() {
                 </div>
                 <div className="content">
                   <Card className="login-card">
-                    <Login onLogin={handleLogin} />
+                    <Login onLogin={handleLogin} onError={handleError}/>
+                    {error && <p className="error">{error}</p>}
                   </Card>
                 </div>
               </div>

@@ -52,12 +52,12 @@ const UserPanel = ({ user, updateUser, onLogout }) => {
 
         // Add user information to the document
         doc.text(`Name: ${user.name}`, 10, 10);
-        doc.text(`Education: ${user.education.join(", ")}`, 10, 20);
-        doc.text(`Education Degree: ${user.educationDegree.join(", ")}`, 10, 30);
+        doc.text(`Education: ${user.education}`, 10, 20);
+        doc.text(`Education Degree: ${user.educationDegree}`, 10, 30);
         doc.text(`Graduation Year: ${user.graduationYear}`, 10, 40);
-        doc.text(`Project Experience: ${user.projectExperience.join(", ")}`, 10, 50);
-        doc.text(`Certifications: ${user.certifications.join(", ")}`, 10, 60);
-        doc.text(`Technologies: ${user.technologies.join(", ")}`, 10, 70);
+        doc.text(`Project Experience: ${user.projectExperience}`, 10, 50);
+        doc.text(`Certifications: ${user.certifications}`, 10, 60);
+        doc.text(`Technologies: ${user.technologies}`, 10, 70);
         doc.text(`Years Worked: ${user.yearsWorked}`, 10, 80);
         doc.text(`Starting Year: ${user.startingYear}`, 10, 90);
         doc.save(`${user.name}_CV.pdf`);

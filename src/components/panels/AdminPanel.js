@@ -137,6 +137,15 @@ const AdminPanel = ({ users, updateUser, addUser, onLogout }) => {
     };
 
     // Render the AdminPanel component
+    // Display a list of users with the option to
+    // edit user information and print CVs
+    // of selected users
+    // Display a search input and filter criteria
+    // to filter users based on search input
+    // and filter criteria
+    // Display buttons to select all users,
+    // clear selected users, add a new user,
+    // print CVs of selected users, and log out
     return (
         <div className="admin-panel">
             <div className="sidebar">
